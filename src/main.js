@@ -6,9 +6,9 @@ import vuetify from "./plugins/vuetify"
 import {VueMasonryPlugin} from 'vue-masonry'
 import Masonry from "./components/misc/Masonry"
 import MasonryTile from "./components/misc/MasonryTile"
-import axios from "axios";
+import axios from "axios"
 import '@mdi/font/css/materialdesignicons.css'
-import 'typeface-roboto/index.css';
+import 'typeface-roboto/index.css'
 
 Vue.use(VueMasonryPlugin)
 
@@ -25,14 +25,13 @@ window.vueApp = new Vue({
     render: h => h(App)
 }).$mount('#app')
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true
 axios.defaults.headers.common = {
-    "Accept": "application/json"
+    "Accept": "application/json",
+    "X-Requested-With": "XMLHttpRequest"
 }
-
-axios.get('/sanctum/csrf-cookie')
 
 String.prototype.sprintf = function (...args) {
     let i = 0;
-    return this.replace(/%s/g, () => args[i++]);
+    return this.replace(/%s/g, () => args[i++])
 }

@@ -10,4 +10,8 @@ export default class Link {
         return config.api.basePath + config.api.prefix + args.join("/")
     }
 
+    static base (...args) {
+        return config.api.basePath + args.join('/')
+    }
+
 }

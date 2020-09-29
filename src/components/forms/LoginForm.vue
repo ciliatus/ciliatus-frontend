@@ -3,7 +3,7 @@
         <v-alert v-if="login_failed">Login failed</v-alert>
         <v-dialog v-model="dialog" persistent max-width="600px" overlay-opacity="1" overlay-color="#e65100">
             <v-card>
-                <v-form v-model="valid" @submit.prevent="onSubmit($data)">
+                <v-form v-model="valid" @submit.prevent="event.submit">
                     <v-card-text>
                         <div class="title text-center text-uppercase pa-5">Sign in</div>
                     </v-card-text>
@@ -46,6 +46,9 @@
 <script>
     import Form from "../../components/forms/Form";
     import FormActionEnum from "../../components/forms/FormActionEnum";
+    import axios from "axios";
+    import Link from "@/util/Link";
+    import ErrorParser from "@/util/ErrorParser";
 
     export default {
 
@@ -60,7 +63,18 @@
                 },
                 submit: {
                     action: FormActionEnum.AUTH,
-                    url_override: '/login'
+                    url_override: Link.base('login')
+                },
+                event: {
+                    submit: () => {
+                        axios.get(Link.base('sanctum/csrf-cookie')).then(() => {
+                            axios.post(Link.base('login'), this.form).then(() => {
+                                this.redirect.success()
+                            }).catch((error) => {
+                                this.event.error(ErrorParser.parse(error))
+                            })
+                        })
+                    }
                 },
                 form: {
                     email: null,

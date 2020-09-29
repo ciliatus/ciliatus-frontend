@@ -43,7 +43,7 @@
                         </v-list-item>
                     </template>
 
-                    <v-divider> </v-divider>
+                    <v-divider></v-divider>
 
                     <v-list-item @click="toggleNightMode">
                         <v-list-item-action>
@@ -84,8 +84,8 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-content>
-            <loader> </loader>
+        <v-main>
+            <loader></loader>
             <v-dialog v-model="error_dialog" width="unset">
                 <v-card>
                     <v-card-title>Something went wrong</v-card-title>
@@ -95,7 +95,7 @@
                         </v-alert>
                     </v-card-text>
                     <v-card-actions>
-                        <v-spacer> </v-spacer>
+                        <v-spacer></v-spacer>
                         <v-btn color="primary" ext @click="error_dialog = false">
                             OK
                         </v-btn>
@@ -103,10 +103,10 @@
                 </v-card>
             </v-dialog>
             <v-container fluid>
-                <breadcrumbs> </breadcrumbs>
-                <router-view> </router-view>
+                <breadcrumbs></breadcrumbs>
+                <router-view></router-view>
             </v-container>
-        </v-content>
+        </v-main>
     </v-app>
 </template>
 
@@ -131,7 +131,7 @@
             Breadcrumbs, Loader
         },
 
-        data () {
+        data() {
             return {
                 error_dialog: false,
                 active_errors: [],
@@ -149,20 +149,20 @@
         },
 
         computed: {
-            user () {
+            user() {
                 return UserModel.getQueryWithAllRelations().find(this.user_id)
             }
         },
 
         methods: {
-            toggleNightMode () {
+            toggleNightMode() {
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark
             },
-            goPrev (fallback = '/') {
+            goPrev(fallback = '/') {
                 if (this.route.prev) this.$router.push(this.route.prev)
                 this.$router.push(fallback)
             },
-            checkAuth () {
+            async checkAuth() {
                 axios.get(Link.api('auth/check'), {
                     transformResponse: [data => data]
                 }).then((response) => {
@@ -177,11 +177,11 @@
             }
         },
 
-        created () {
+        created() {
             this.checkAuth()
 
             this.$router.beforeEach((to, from, next) => {
-                this.checkAuth()
+                //this.checkAuth()
                 this.route.prev = from
 
                 next()
