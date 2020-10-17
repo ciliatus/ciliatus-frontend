@@ -35,3 +35,31 @@ String.prototype.sprintf = function (...args) {
     let i = 0;
     return this.replace(/%s/g, () => args[i++])
 }
+
+Number.prototype.formatSeconds = function (decimals) {
+    let n = this, u = 'seconds'
+    if (n > 120) {
+        u = 'minutes'
+        n /= 60
+    }
+    if (n > 120) {
+        u = 'hours'
+        n /= 60
+    }
+    if (n > 48) {
+        u = 'days'
+        n /= 24
+    }
+    if (n > 28) {
+        u = 'weeks'
+        n /= 7
+    }
+
+    let d = 1;
+    for (let i = 0; i < decimals; i++) {
+        d *= 10
+    }
+    n = Math.round((n + Number.EPSILON) * d) / d
+
+    return '' + n + ' ' + u
+}

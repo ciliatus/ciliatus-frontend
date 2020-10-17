@@ -30,7 +30,7 @@
                 return this.model.query()
                     .with('physical_sensors')
                     .with('physical_sensors.logical_sensors')
-                    .with('physical_sensors.logical_sensors.type')
+                    .with('physical_sensors.logical_sensors.logical_sensor_type')
                     .find(this.id)
             },
             planeElementId () {
@@ -40,7 +40,7 @@
 
         methods: {
             refresh () {
-                ModelFactory.refresh(this.model, this.object.id, [ 'physical_sensors', 'physical_sensors.logical_sensors', 'physical_sensors.logical_sensors.type' ])
+                ModelFactory.refresh(this.model, this.object.id, [ 'physical_sensors', 'physical_sensors.logical_sensors', 'physical_sensors.logical_sensors.logical_sensor_type' ])
             },
             render (parent) {
                 this.rendered = true
@@ -74,7 +74,7 @@
                                 y: parseInt(sensor.position_y),
                                 z: parseInt(sensor.position_z)
                             }, sensor.logical_sensors.map((ls) => {
-                                return "" + ls.current_reading_corrected_rounded + ls.type.reading_type_symbol
+                                return "" + ls.current_reading_corrected_rounded + ls.logical_sensor_type.reading_type_symbol
                             }).join(', '))
                         })
 

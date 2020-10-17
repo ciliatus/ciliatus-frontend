@@ -137,3 +137,9 @@ div.v-sheet.v-list > .v-list-item:nth-last-child(1) {
   height: 48px;
   margin-bottom: 30px;
 }
+
+.v-application {
+  .overline.overline-inline {
+    line-height: inherit !important;
+  }
+}

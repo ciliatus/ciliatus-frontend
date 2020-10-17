@@ -17,9 +17,11 @@
                 </v-list-item-title>
                 <v-list-item-subtitle>
                     <slot name="subtitle"> </slot>
-                    <span class="float-right"><slot name="error"> </slot></span>
                 </v-list-item-subtitle>
             </v-list-item-content>
+            <v-list-item-avatar right>
+                <span class="float-right"><slot name="error"> </slot></span>
+            </v-list-item-avatar>
         </v-list-item>
 
         <v-divider v-if="!noSeparator"> </v-divider>

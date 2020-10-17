@@ -2,12 +2,12 @@
     <v-skeleton-loader v-if="!object" transition="fade-transitions" height="120" type="card">
     </v-skeleton-loader>
     <v-card v-else :loading="loading">
-        <card-title v-if="object">
+        <card-title v-if="object" :link="model.view('show', object)">
             <template v-slot:icon>mdi-animation-play-outline</template>
             <template v-slot:title>{{ object.name }}</template>
             <template v-slot:subtitle>
                 Appliance Group
-                <span v-if="object.is_builtin" class="overline float-right">builtin</span>
+                <span v-if="object.is_builtin" class="overline overline-inline float-right">builtin</span>
                 <v-tooltip top v-for="(capability, index) in object.capabilities"
                            v-bind:data="capability" v-bind:key="capability.id">
                     <template v-slot:activator="{ on }" >

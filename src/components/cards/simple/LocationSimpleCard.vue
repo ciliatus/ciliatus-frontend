@@ -9,7 +9,7 @@
                    :src="'https://loremflickr.com/320/120/house?random=' + Math.random() * 10000"> </v-img>
         </v-sheet>
 
-        <card-title v-if="object">
+        <card-title v-if="object" :link="model.view('show', object)" no-separator>
             <template v-slot:icon>{{ object._icon }}</template>
             <template v-slot:title>{{ object.name }}</template>
             <template v-slot:subtitle>Location: {{ object.type.name }}</template>

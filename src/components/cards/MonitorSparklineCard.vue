@@ -20,6 +20,9 @@
                     padding="16"
                     stroke-linecap="round">
             </v-sparkline>
+            <v-divider class="my-2"></v-divider>
+            <v-icon class="mr-2" small>mdi-clock</v-icon>
+            <span class="caption grey--text font-weight-light">last update {{ (monitor.last_refresh_diff_minutes * 60).formatSeconds(0) }} ago</span>
         </v-card-text>
     </v-card>
 </template>

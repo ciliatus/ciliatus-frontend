@@ -2,7 +2,7 @@
     <v-skeleton-loader v-if="!object" transition="fade-transitions" height="120" type="card">
     </v-skeleton-loader>
     <v-card v-else :loading="loading" :class="card_state">
-        <card-title v-if="object" :no-separator="true">
+        <card-title v-if="object" :no-separator="true" :link="model.view('show', object)">
             <template v-slot:icon>{{ object._icon }}</template>
             <template v-slot:title>
                 {{ object.name }}
