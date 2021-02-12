@@ -10,6 +10,7 @@
 
         props: {
             filter: Object,
+            noPaginationLoad: Boolean,
             delayLoadingUntilEvent: String
         },
 
@@ -136,7 +137,9 @@
                 })
             }
 
-            this.loadPagination()
+            if (!this.noPaginationLoad) {
+                this.loadPagination()
+            }
 
             if (!this.noInitialLoad) {
                 this.loadPage()

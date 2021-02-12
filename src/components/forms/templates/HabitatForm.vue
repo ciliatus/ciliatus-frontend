@@ -15,6 +15,7 @@
                                 <autocomplete-select :default="form.relations.habitat_type" @input="(t) => {form.relations.habitat_type = t}"
                                                      label="Type" title="Select a type" :error-messages="errors"
                                                      :validator="$refs['habitat-type-validator']"
+                                                     no-initial-load no-pagination-load
                                                      :store-model="HabitatTypeModel"> </autocomplete-select>
                             </ValidationProvider>
 
@@ -23,6 +24,7 @@
                                 <autocomplete-select :default="form.relations.location" @input="(t) => {form.relations.location = t}"
                                                      label="Location" title="Select a Location" :error-messages="errors"
                                                      :validator="$refs['location-validator']"
+                                                     no-initial-load no-pagination-load
                                                      :store-model="LocationModel"> </autocomplete-select>
                             </ValidationProvider>
                         </stepper-form-step>
@@ -36,6 +38,7 @@
                                                      label="Animals" title="Add animals" :multiple="true"
                                                      :error-messages="errors"
                                                      :validator="$refs['animals-validator']"
+                                                     no-initial-load no-pagination-load
                                                      :store-model="AnimalModel"> </autocomplete-select>
                             </ValidationProvider>
                         </stepper-form-step>
@@ -49,6 +52,7 @@
                                                      label="Sensors" title="Add Sensors" :multiple="true"
                                                      :error-messages="errors"
                                                      :validator="$refs['physical_sensors-validator']"
+                                                     no-initial-load no-pagination-load
                                                      :store-model="PhysicalSensorModel"> </autocomplete-select>
                             </ValidationProvider>
 
@@ -58,6 +62,7 @@
                                                      label="Appliances" title="Add appliances" :multiple="true"
                                                      :error-messages="errors"
                                                      :validator="$refs['appliances-validator']"
+                                                     no-initial-load no-pagination-load
                                                      :store-model="ApplianceModel"> </autocomplete-select>
                             </ValidationProvider>
 
@@ -67,6 +72,7 @@
                                                      label="Appliance Groups" title="Add Appliance Groups" :multiple="true"
                                                      :error-messages="errors" :filter="{is_builtin:'false'}"
                                                      :validator="$refs['appliance_groups-validator']"
+                                                     no-initial-load no-pagination-load
                                                      :store-model="ApplianceGroupModel"> </autocomplete-select>
                             </ValidationProvider>
                         </stepper-form-step>

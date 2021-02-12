@@ -10,6 +10,7 @@
             :label="label"
             :search-input.sync="search_str"
             @change="onChange"
+            @click="onClick"
             clearable
             no-filter
             :multiple="multiple"
@@ -79,6 +80,14 @@
                     pristine: false
                 })
                 this.$emit('input', e)
+            },
+
+            async onClick (e) {
+                window.console.log("click")
+                if (this.objects.length < 1) {
+                    this.loadPagination()
+                    this.loadPage()
+                }
             },
 
             onSuggestionsUpdated () {
