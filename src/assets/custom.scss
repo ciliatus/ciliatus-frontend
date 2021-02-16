@@ -143,3 +143,14 @@ div.v-sheet.v-list > .v-list-item:nth-last-child(1) {
     line-height: inherit !important;
   }
 }
+
+.v-tab.tab-vertical-large {
+  justify-content: left;
+}
+
+/*
+ * Spacing only between elements but not on first or last
+ */
+.spacing-1 + .spacing-1 {
+  margin-left: 4px;
+}

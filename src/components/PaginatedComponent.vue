@@ -29,6 +29,7 @@
                 },
                 search: null,
                 search_mapping: {},
+                search_exact: false,
                 updateCallbacks: []
             }
         },
@@ -107,10 +108,14 @@
                 }, 100)
             },
 
-            updateSearch (key) {
-                if (key.key !== "Enter") return
-                this.pagination.filter = Search.resolveSearchStringToApiRequest(this.search, this.search_mapping)
+            updateSearch () {
+                this.pagination.filter = Search.resolveSearchString(this.search, this.search_mapping, this.search_exact)
                 this.loadPage()
+            },
+
+            toggleExact () {
+                this.search_exact = !this.search_exact
+                if (this.search.length > 0) this.updateSearch()
             },
 
             receivedPaginatedItemsCallback(response, ids) {

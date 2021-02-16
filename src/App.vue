@@ -90,7 +90,7 @@
                 <v-card>
                     <v-card-title>Something went wrong</v-card-title>
                     <v-card-text>
-                        <v-alert v-for="error in active_errors" border="left" colored-border :color="error.severity">
+                        <v-alert v-for="error in active_errors" :key="error" border="left" colored-border :color="error.severity">
                             {{ error.message }}
                         </v-alert>
                     </v-card-text>

@@ -1,16 +1,18 @@
 <template>
-   <div>
-      <habitat-card-stream :on-initial-load-done="onInitialDone"> </habitat-card-stream>
-
-      <model-speed-dial :model="model" create> </model-speed-dial>
-   </div>
+  <v-container>
+    <v-row align="start">
+      <v-col sm="12">
+        <habitats-data-table :on-initial-load-done="onInitialDone"></habitats-data-table>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
     import IndexView from "./IndexView"
-    import HabitatCardStream from "../../components/cardstreams/HabitatCardStream"
     import HabitatModel from "../../store/models/Core/HabitatModel"
     import ModelSpeedDial from "../../components/misc/ModelSpeedDial";
+    import HabitatsDataTable from "@/components/tables/HabitatsDataTable";
 
     export default {
         extends: IndexView,
@@ -22,7 +24,7 @@
         },
 
         components: {
-           ModelSpeedDial, HabitatCardStream
+           ModelSpeedDial, HabitatsDataTable
         }
     }
 </script>

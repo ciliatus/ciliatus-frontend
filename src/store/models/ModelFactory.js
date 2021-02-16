@@ -22,7 +22,10 @@ export default class ModelFactory {
     static getFilterUrlArtifact (filter) {
         let url = ''
         Object.keys(filter).forEach((key) => {
-            url += '&filter[' + key + ']=' + filter[key]
+            url += '&filter[' + key + ']='
+            if (!filter[key].exact) url += 'like:*'
+            url += filter[key].value
+            if (!filter[key].exact) url += '*'
         })
 
         return url

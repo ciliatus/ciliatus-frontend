@@ -11,18 +11,22 @@
 
         <v-card-text>
             <v-sparkline
-                    :key="String(monitor.value)"
-                    :smooth="8"
-                    :gradient="['#42b3f4']"
-                    :line-width="0.8"
-                    :value="monitor.history"
-                    auto-draw
-                    padding="16"
-                    stroke-linecap="round">
+                :style="'width:' + width + '%;'"
+                :smooth="8"
+                :gradient="['#' + monitor.type.reading_type_color]"
+                :line-width="1"
+                :value="history"
+                auto-draw
+                padding="16"
+                stroke-linecap="round">
             </v-sparkline>
-            <v-divider class="my-2"></v-divider>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-text>
             <v-icon class="mr-2" small>mdi-clock</v-icon>
-            <span class="caption grey--text font-weight-light">last update {{ (monitor.last_refresh_diff_minutes * 60).formatSeconds(0) }} ago</span>
+            <span class="caption grey--text font-weight-light">last update {{ (monitor.last_refresh_diff_minutes * 60).formatSeconds(0) }}</span>
         </v-card-text>
     </v-card>
 </template>
@@ -40,6 +44,23 @@
 
         props: {
             monitor: Object
+        },
+
+        computed: {
+            history () {
+                let history;
+                if (this.monitor.history.length > 32) {
+                    history = this.monitor.history.slice(this.monitor.history.length - 33, this.monitor.history.length - 1)
+                } else {
+                    history = this.monitor.history;
+                }
+
+                return history.filter((h) => h != null)
+            },
+            width () {
+                // Reduce width when missing values due to late data delivery to ensure we only display current data
+                return 100 - (100/80)*(32-this.history.length)
+            }
         }
 
     }

@@ -83,7 +83,6 @@
             },
 
             async onClick (e) {
-                window.console.log("click")
                 if (this.objects.length < 1) {
                     this.loadPagination()
                     this.loadPage()
@@ -96,11 +95,23 @@
 
                     this.onChange(this.default)
                 }
+            },
+
+            loadDefaultValuesIfSet() {
+                if (this.initial && this.default) {
+                    this.search_model = this.default
+                    this.pagination.current_page_item_ids = Array.isArray(this.default) ? this.default : [this.default]
+
+                    this.$nextTick(() => {
+                        this.onChange(this.default)
+                    })
+                }
             }
         },
 
         created () {
             this.pushUpdateCallback(this.onSuggestionsUpdated)
+            this.loadDefaultValuesIfSet()
         }
 
     }

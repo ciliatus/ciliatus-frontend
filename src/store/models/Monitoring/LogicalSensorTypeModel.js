@@ -22,6 +22,7 @@ export default class LogicalSensorTypeModel extends Model {
             reading_type_name: this.attr(''),
             reading_type_unit: this.attr(''),
             reading_type_symbol: this.attr(''),
+            reading_type_color: this.attr(''),
 
             logical_sensors: this.belongsTo(LogicalSensorModel, 'logical_sensor_type_id')
         }

@@ -38,7 +38,7 @@
                 <a :href="'/sensors/' + item.id">{{ item.name }}</a>
             </template>
             <template v-slot:item.belongsToModel="{ item }">
-                <inline-habitat v-if="item.belongsToModel_entity === 'habitats'" :id="item.belongsToModel_id"> </inline-habitat>
+                <habitat-inline v-if="item.belongsToModel_entity === 'habitats'" :id="item.belongsToModel_id"> </habitat-inline>
             </template>
             <template v-slot:expanded-item="{ item }" style="box-shadow: none">
                 <td colspan="7" class="ma-0 pa-0" v-if="item.logical_sensors.length > 0">
@@ -63,16 +63,15 @@
 <script>
     import DataTable from "./DataTable"
     import ErrorAlert from "../misc/ErrorAlert"
-    import InlineHabitat from "../inline/HabitatInline"
-    import InlineLocation from "../inline/LocationInline"
     import PhysicalSensorModel from "../../store/models/Monitoring/PhysicalSensorModel"
+    import HabitatInline from "@/components/inline/HabitatInline";
 
     export default {
 
         extends: DataTable,
 
         components: {
-            ErrorAlert, InlineHabitat, InlineLocation
+            ErrorAlert, HabitatInline
         },
 
         data () {
