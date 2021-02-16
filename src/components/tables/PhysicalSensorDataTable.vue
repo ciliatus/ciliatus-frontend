@@ -82,7 +82,9 @@
                     {
                         text: '',
                         value: 'icon',
-                        width: 80
+                        width: 40,
+                        sortable: false,
+                        filterable: false
                     },
                     {
                         text: 'Name', //@TODO: Translate

@@ -3,7 +3,7 @@ export default class Search {
     static resolveSearchString (string, mapping = null, exact = false) {
         if (string.length < 1) return {}
 
-        if (string.match(/^[a-z0-9]+$/i)) string = "name:" + string // Default search pattern
+        if (string.match(/^[a-z0-9\s]+$/i)) string = "name:" + string // Default search pattern
 
         let resolved = {}, term, regex = /([a-z.]+):([^,]+)/ig
         while ((term = regex.exec(string)) !== null) {

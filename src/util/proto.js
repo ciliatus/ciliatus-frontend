@@ -41,26 +41,27 @@ export default {
             return Math.round(this * m) / m
         }
 
-        Number.prototype.formatSeconds = function (decimals) {
-            let n = this, u = 'seconds ago'
+        Number.prototype.formatSeconds = function (decimals, postfix = 'ago') {
+            postfix = ' ' + postfix
+            let n = this, u = 'seconds' + postfix
 
             if (n < 60) {
-                return 'just now'
+                return 'a few moments ago'
             }
             if (n >= 120) {
-                u = 'minutes ago'
+                u = 'minutes' + postfix
                 n /= 60
 
                 if (n >= 120) {
-                    u = 'hours ago'
+                    u = 'hours' + postfix
                     n /= 60
 
                     if (n >= 48) {
-                        u = 'days ago'
+                        u = 'days' + postfix
                         n /= 24
 
                         if (n >= 28) {
-                            u = 'weeks ago'
+                            u = 'weeks' + postfix
                             n /= 7
                         }
                     }

@@ -24,19 +24,16 @@
                          stroke-linecap="round">
             </v-sparkline>
         </v-card-text>
-        <v-card-text>
-            <div class="row">
-                <div class="col" v-html="start"></div>
-                <div class="col text-right" v-html="end"></div>
-            </div>
-        </v-card-text>
 
         <v-divider></v-divider>
 
         <v-card-text>
             <div class="pt-2">
                 <v-icon class="mr-2" small>mdi-clock</v-icon>
-                <span class="caption grey--text font-weight-light">last update {{ (monitor.last_refresh_diff_minutes * 60).formatSeconds(0) }}</span>
+                <span class="caption grey--text font-weight-light">
+                    Last update {{ (monitor.last_refresh_diff_minutes * 60).formatSeconds(0, 'ago') }}.
+                    Showing data from the last {{ historyDiff.formatSeconds(0, '') }}.
+                </span>
             </div>
         </v-card-text>
     </v-card>
@@ -47,6 +44,7 @@
     import ErrorIcon from "../misc/ErrorIcon"
     import CardTitle from "./CardTitle"
     import InfoIcon from "@/components/misc/InfoIcon";
+    import DateTime from "@/util/DateTime";
 
     export default {
 
@@ -75,13 +73,11 @@
                 // Reduce width when missing values due to late data delivery to ensure we only display current data
                 return 100 - (100/64)*(64-this.history.length)
             },
-            start () {
-                let s = this.$moment.parseZone(this.monitor.history.start);
-                return s.format('YYYY-MM-DD') + '<br />' + s.format('HH:mm:SS')
-            },
-            end () {
-                let e = this.$moment.parseZone(this.monitor.history.end);
-                return e.format('YYYY-MM-DD') + '<br />' + e.format('HH:mm:SS')
+            historyDiff () {
+                let start = DateTime.parse(this.monitor.history.start),
+                    end   = DateTime.parse(this.monitor.history.end)
+
+                return end.diff(start)
             }
         }
 
