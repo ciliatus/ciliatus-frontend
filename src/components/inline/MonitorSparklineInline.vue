@@ -39,14 +39,15 @@
 
         computed: {
             history () {
-                let history;
-                if (this.monitor.history.length > 12) {
-                    history = this.monitor.history.slice(this.monitor.history.length - 13, this.monitor.history.length - 1)
+                let hist, values = this.monitor.history.values
+
+                if (values.length > 12) {
+                    hist = values.slice(values.length - 13, values.length - 1)
                 } else {
-                    history = this.monitor.history;
+                    hist = values
                 }
 
-                return history.filter((h) => h != null)
+                return hist.filter((h) => h != null)
             },
             width () {
                 // Reduce width when missing values due to late data delivery to ensure we only display current data
