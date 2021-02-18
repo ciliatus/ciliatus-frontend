@@ -17,14 +17,6 @@ Vue.component('v-masonry-tile', MasonryTile)
 
 Vue.config.productionTip = false
 
-window.vueApp = new Vue({
-    router,
-    store,
-    vuetify,
-    iconfont: 'mdi',
-    render: h => h(App)
-}).$mount('#app')
-
 axios.defaults.withCredentials = true
 axios.defaults.headers.common = {
     "Accept": "application/json",
@@ -32,4 +24,40 @@ axios.defaults.headers.common = {
 }
 
 import proto from "@/util/proto";
+import Echo from "laravel-echo";
 proto.load()
+
+window.Pusher = require('pusher-js');
+window.echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'ciliatus-dev',
+    cluster: 'mt1',
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    enabledTransports: ['ws', 'wss'],
+    forceTLS: false,
+    authorizer: (channel, options) => {
+        return {
+            authorize: (socketId, callback) => {
+                axios.post('/api/v1/common/broadcast/authenticate', {
+                    socket_id: socketId,
+                    channel_name: channel.name
+                })
+                    .then(response => {
+                        callback(false, response.data);
+                    })
+                    .catch(error => {
+                        callback(true, error);
+                    });
+            }
+        };
+    },
+});
+
+window.vueApp = new Vue({
+    router,
+    store,
+    vuetify,
+    iconfont: 'mdi',
+    render: h => h(App)
+}).$mount('#app')

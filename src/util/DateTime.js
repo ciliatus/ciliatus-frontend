@@ -8,12 +8,26 @@ export default class DateTime {
         this.dt = dt
     }
 
+    static now() {
+        return new DateTime(moment())
+    }
+
     static parse(dt) {
         return new DateTime(moment.parseZone(dt))
     }
 
+    format(format = null) {
+        if (format == null) return this.dt.format()
+
+        return this.dt.format(format)
+    }
+
     diff (dt) {
         return Math.round(this.dt.diff(dt.dt) / 1000)
+    }
+
+    subDays (count) {
+        return this.dt.subtract(count, 'days')
     }
 
 }

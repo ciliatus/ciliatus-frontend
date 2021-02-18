@@ -119,16 +119,21 @@ export default class ModelFactory {
             model_name = model._model + 'Model'
             models[model_name].insert({ data: [model] })
             models[model_name].announce(model.id)
-            if (model._model === requested_model.name) ids.push(model.id)
+            if (model._model === requested_model.name) {
+                ids.push(model.id)
+                models[model_name].enableListener(model.id)
+            }
         })
 
         if (callback) callback(response, ids)
     }
 
-    static refresh (model, id, relations) {
+    static refresh (model, id, relations, recursive = false) {
+        if (model.find(id) == null) return
+
         model.fetchById(id)
 
-        if (relations != null) {
+        if (relations != null && recursive) {
             let m = model.find(id)
             if (m != null) {
                 if (!Array.isArray(relations)) relations = [relations]
@@ -153,7 +158,14 @@ export default class ModelFactory {
                 })
             }
         }
+    }
 
+    static refreshFromListener (model, id) {
+        if (model.find(id) && model.find(id)._listen) {
+            window.console.log('Listener active on ' + model.name + '[' + id + ']')
+            this.refresh(model, id)
+        }
+        window.console.log('Listener inactive on ' + model.name + '[' + id + ']')
     }
 
 }

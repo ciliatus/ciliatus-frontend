@@ -1,7 +1,7 @@
 export default class Search {
 
     static resolveSearchString (string, mapping = null, exact = false) {
-        if (string.length < 1) return {}
+        if (!string || string.length < 1) return {}
 
         if (string.match(/^[a-z0-9\s]+$/i)) string = "name:" + string // Default search pattern
 

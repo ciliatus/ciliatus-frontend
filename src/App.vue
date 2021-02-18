@@ -121,6 +121,7 @@
     import JSONBigInt from "json-bigint";
     import UserModel from "./store/models/Common/UserModel";
     import ModelFactory from "./store/models/ModelFactory";
+    import models from "@/store/models";
 
     export default {
         props: {
@@ -144,7 +145,8 @@
                 items: routes.filter(item => item.menu)
                     .map((r) => {
                         return {to: r.path, icon: r.icon, text: r.meta.title}
-                    })
+                    }),
+                echo: null
             }
         },
 
@@ -179,6 +181,7 @@
 
         created() {
             this.checkAuth()
+            this.echo = window.echo
 
             this.$router.beforeEach((to, from, next) => {
                 //this.checkAuth()
@@ -190,6 +193,14 @@
             this.$root.$on('ErrorsFlashed', (errors, popup = true) => {
                 this.active_errors = errors
                 this.error_dialog = popup
+            })
+
+            this.$root.$on('BackendModelUpdateRequested', (model, id) => {
+                ModelFactory.fetch(models[model + 'Model'], id)
+            })
+
+            this.echo.private('frontend-update-requests').listen('.Common.FrontendModelUpdateRequest', (e) => {
+                ModelFactory.refreshFromListener(models[e.model_name + 'Model'], e.id)
             })
         }
 

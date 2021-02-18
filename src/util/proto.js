@@ -42,10 +42,10 @@ export default {
         }
 
         Number.prototype.formatSeconds = function (decimals, postfix = 'ago') {
-            postfix = ' ' + postfix
+            postfix = postfix ? ' ' + postfix : ''
             let n = this, u = 'seconds' + postfix
 
-            if (n < 60) {
+            if (n <= 60) {
                 return 'a few moments ago'
             }
             if (n >= 120) {

@@ -51,4 +51,21 @@ export default class HabitatModel extends Model {
     get type () {
         return this.habitat_type
     }
+
+    static afterCreate (model) {
+        model.monitorTickInterval = setInterval(() => {
+            Object.keys(model._monitor).forEach((monitor) => {
+                HabitatModel.update({
+                    where: model.id,
+                    data (m) {
+                        m._monitor[monitor].last_refresh_diff_minutes += 1
+                    }
+                })
+            })
+        }, 60*1000)
+    }
+
+    static beforeDelete (model) {
+        if (model.monitorTickInterval) model.monitorTickInterval = null
+    }
 }

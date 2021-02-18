@@ -37,7 +37,7 @@
                 <v-icon class="my-3">{{ item._icon }}</v-icon>
             </template>
             <template v-slot:item.name="{ item }">
-                <a :href="'/habitats/' + item.id">{{ item.name }}</a>
+                <router-link :to="model.view('show', item)">{{ item.name }}</router-link>
             </template>
             <template v-slot:item.animals="{ item }">
                 <div class="mb-1">
@@ -45,9 +45,8 @@
                 </div>
             </template>
             <template v-slot:item._monitor="{ item }">
-                <div class="mb-1">
-                    <monitor-sparkline-inline v-if="item._monitor"
-                                              v-for="(monitor, index) in Object.keys(item._monitor)" :key="index"
+                <div class="mb-1" v-if="item._monitor">
+                    <monitor-sparkline-inline v-for="(monitor, index) in Object.keys(item._monitor)" :key="index"
                                               v-bind:data="item._monitor[monitor]" :monitor="item._monitor[monitor]">
                     </monitor-sparkline-inline>
                 </div>
@@ -77,7 +76,8 @@
         extends: DataTable,
 
         components: {
-          MonitorSparklineInline,
+            MonitorSparklineInline,
+            HabitatModel,
             ErrorAlert, AnimalInline
         },
 

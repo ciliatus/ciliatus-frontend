@@ -5,16 +5,16 @@
             <v-tab class="tab-vertical-large">
                 <v-icon left>{{ object._icon }}</v-icon> Habitat
             </v-tab>
-            <v-tab>
+            <v-tab class="tab-vertical-large">
                 <v-icon left>mdi-lock</v-icon> Monitoring
             </v-tab>
-            <v-tab>
+            <v-tab class="tab-vertical-large">
                 <v-icon left>mdi-lock</v-icon> Automation
             </v-tab>
             <v-tab-item>
-                <v-card outlined class="pl-5 pr-5">
-                    <v-row>
-                        <v-col sm="12" md="6" lg="4" xl="3">
+                <v-card flat class="py-2 px-5">
+                    <v-row class="mb-5">
+                        <v-col sm="12" md="6" lg="4">
                             <v-row>
                                 <v-col>
                                     <habitat-simple-card :id="id"
@@ -34,7 +34,7 @@
                             </v-row>
                         </v-col>
 
-                        <v-col sm="12" md="6" lg="4" xl="3">
+                        <v-col sm="12" md="6" lg="4">
                             <v-row v-if="object.animals" v-for="(animal, index) in object.animals"
                                    v-bind:data="animal" v-bind:key="animal.id">
                                 <v-col>
@@ -49,9 +49,9 @@
                 </v-card>
             </v-tab-item>
             <v-tab-item>
-                <v-card outlined class="pl-5 pr-5">
+                <v-card flat class="py-2 px-5">
                     <v-row>
-                        <v-col sm="12" md="6" lg="4" xl="3">
+                        <v-col sm="12" md="6" lg="5">
                             <template v-if="object._monitor">
                                 <v-row v-for="(monitor, index) in Object.keys(object._monitor)"
                                        v-bind:data="object._monitor[monitor]" v-bind:key="monitor">
@@ -80,7 +80,7 @@
                 </v-card>
             </v-tab-item>
             <v-tab-item>
-                <v-card outlined class="pl-5 pr-5">
+                <v-card flat class="py-2 px-5">
                     <v-row>
                         <v-col sm="12" md="6" lg="4" xl="3">
                             <v-row v-if="object.appliance_groups.length > 0" v-for="(group, index) in object.appliance_groups"
@@ -97,7 +97,7 @@
                             </v-row>
                         </v-col>
 
-                        <v-col sm="12" md="6" lg="4" xl="3">
+                        <v-col sm="12" md="6" lg="4">
                             <v-row v-if="object.workflows.length > 0" v-for="(workflow, index) in object.workflows"
                                    v-bind:data="workflow" v-bind:key="workflow.id">
                                 <v-col>

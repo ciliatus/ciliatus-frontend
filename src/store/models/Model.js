@@ -1,5 +1,6 @@
 import { Model as VuexModel } from '@vuex-orm/core'
 import config from "../../config"
+import ModelFactory from "@/store/models/ModelFactory";
 
 export default class Model extends VuexModel {
     static baseUrl = config.api.basePath + config.api.prefix
@@ -36,6 +37,8 @@ export default class Model extends VuexModel {
             timestamps: this.attr({}),
             _fk: this.attr(''),
             _model: this.attr(''),
+            _autorefresh: this.attr(false),
+            _listen: this.attr(false),
             _icon: this.attr(''),
             _self: this.attr(''),
             _relations: this.attr({})
@@ -67,6 +70,16 @@ export default class Model extends VuexModel {
 
     static announce (id) {
         window.vueApp.$emit('ModelLoaded', this.name, id)
+    }
+
+    static enableListener (id) {
+        window.console.log('Event listener enabled for ' + this.name + ' [' + id + ']')
+        this.update({
+            where: id,
+            data: {
+                _listen: true
+            }
+        })
     }
 
     static endpoint(operation = 'fetch') {
